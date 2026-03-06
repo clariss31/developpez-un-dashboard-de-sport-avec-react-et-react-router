@@ -1,0 +1,166 @@
+.weekly-goals-section {
+    margin-top: 40px;
+    padding-bottom: 60px;
+
+    .section-header {
+        margin-bottom: 25px;
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: $text-dark;
+            margin: 0 0 5px 0;
+        }
+
+        .date-range {
+            font-size: 14px;
+            color: #888;
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+
+    .weekly-goals-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+
+        .goals-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+
+            .goals-header {
+                margin-bottom: 20px;
+
+                .goals-count {
+                    display: flex;
+                    align-items: baseline;
+                    gap: 8px;
+
+                    .count-value {
+                        font-size: 32px;
+                        font-weight: 700;
+                        color: $primary-color;
+                    }
+
+                    .count-text {
+                        font-size: 16px;
+                        color: #a9b2f6;
+                        font-weight: 500;
+                    }
+                }
+
+                .goals-subtitle {
+                    font-size: 14px;
+                    color: #888;
+                    margin: 5px 0 0 0;
+                }
+            }
+
+            .donut-chart-container {
+                position: relative;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .donut-legend {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                    width: 100%;
+                    pointer-events: none;
+
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-size: 12px;
+                        color: #888;
+                        position: absolute;
+
+                        .dot {
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                        }
+
+                        &.remaining {
+                            top: -70px;
+                            right: 20%;
+
+                            .dot {
+                                background: #a9b2f6;
+                            }
+                        }
+
+                        &.completed {
+                            bottom: -70px;
+                            left: 15%;
+
+                            .dot {
+                                background: $primary-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .stats-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .stat-card {
+                background: white;
+                border-radius: 20px;
+                padding: 30px 40px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .stat-title {
+                    font-size: 14px;
+                    color: #888;
+                    font-weight: 500;
+                    margin: 0 0 15px 0;
+                }
+
+                .stat-value {
+                    font-size: 16px;
+                    color: #a9b2f6;
+                    margin: 0;
+
+                    .number {
+                        font-size: 32px;
+                        font-weight: 700;
+                        color: $primary-color;
+                        margin-right: 5px;
+                    }
+                }
+
+                &.distance-card {
+                    .stat-value {
+                        color: #ffb4b4;
+
+                        .number {
+                            color: #ff3b1d;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

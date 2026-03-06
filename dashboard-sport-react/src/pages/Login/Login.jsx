@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import * as apiService from '../../services/apiService';
 
 /**
  * Page de connexion.
@@ -12,7 +13,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useAuth();
+    const { login: setAuthToken } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -20,23 +21,11 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:8000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                login(data.token || data.jwt);
-                navigate('/');
-            } else {
-                setError('Identifiants invalides');
-            }
+            const data = await apiService.login(username, password);
+            setAuthToken(data.token || data.jwt);
+            navigate('/');
         } catch (err) {
-            setError('Erreur de connexion au serveur');
+            setError(err.message || 'Erreur de connexion au serveur');
         }
     };
 

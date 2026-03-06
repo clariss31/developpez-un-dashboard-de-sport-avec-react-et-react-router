@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { USER_MAIN_DATA, USER_ACTIVITY } from '../services/mockData';
+import * as apiService from '../services/apiService';
 
 /**
  * Création du contexte utilisateur.
@@ -9,7 +9,7 @@ const UserContext = createContext();
 
 /**
  * Provider pour le contexte utilisateur.
- * Gère l'état des données utilisateur et la persistance des données via les cookies.
+ * Gère l'état des données utilisateur.
  * @param {object} props - Props du composant
  * @param {React.ReactNode} props.children - Contenu à envelopper avec le provider
  * @returns {React.ReactElement} - UserProvider avec son contenu
@@ -19,36 +19,64 @@ export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
     const [userActivity, setUserActivity] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = () => {
-            const sharedProfile = {
-                firstName: USER_MAIN_DATA.profile.firstName,
-                lastName: USER_MAIN_DATA.profile.lastName,
-                createdAt: USER_MAIN_DATA.profile.createdAt,
-                profilePicture: USER_MAIN_DATA.profile.profilePicture,
-            };
+        const loadData = async () => {
+            setLoading(true);
+            setError(null);
 
-            const sharedStats = {
-                totalDistance: USER_MAIN_DATA.statistics.totalDistance,
-            };
+            try {
+                // Pour l'instant on utilise un ID par défaut, 
+                // à lier plus tard avec l'authentification réelle
+                const userId = 1;
 
-            const sharedActivity = USER_ACTIVITY.map(session => ({
-                date: session.date,
-                distance: session.distance,
-                duration: session.duration,
-            }));
+                const mainData = await apiService.getUserMainData(userId);
+                const activityData = await apiService.getUserActivity(userId);
 
-            setUserData({ profile: sharedProfile, statistics: sharedStats });
-            setUserActivity(sharedActivity);
-            setLoading(false);
+                const sharedProfile = {
+                    firstName: mainData.profile.firstName,
+                    lastName: mainData.profile.lastName,
+                    createdAt: mainData.profile.createdAt,
+                    profilePicture: mainData.profile.profilePicture,
+                    age: mainData.profile.age,
+                    weight: mainData.profile.weight,
+                    height: mainData.profile.height,
+                    gender: mainData.profile.gender || "Femme",
+                };
+
+                const sharedStats = {
+                    totalDistance: mainData.statistics.totalDistance,
+                    totalDuration: mainData.statistics.totalDuration,
+                    totalSessions: mainData.statistics.totalSessions,
+                };
+
+                const sharedActivity = activityData.map(session => ({
+                    date: session.date,
+                    distance: session.distance,
+                    duration: session.duration,
+                    heartRate: session.heartRate, // important for the chart!
+                }));
+
+                setUserData({
+                    profile: sharedProfile,
+                    statistics: sharedStats,
+                    activity: sharedActivity
+                });
+                setUserActivity(sharedActivity);
+            } catch (err) {
+                setError("Impossible de charger les données utilisateur");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        fetchData();
+        loadData();
     }, []);
 
     return (
-        <UserContext.Provider value={{ userData, userActivity, loading }}>
+        <UserContext.Provider value={{ userData, userActivity, loading, error }}>
             {children}
         </UserContext.Provider>
     );

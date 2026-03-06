@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import logo from '../../assets/images/logo.png';
 
 /**
  * Composant Header de l'application.
@@ -31,16 +32,15 @@ const Header = () => {
     return (
         <header className="header">
             <div className="header-logo">
-                <div className="logo-icon">
-                    <span></span><span></span><span></span>
-                </div>
-                SPORTSEE
+                <Link to="/">
+                    <img src={logo} alt="SportSee Logo" />
+                </Link>
             </div>
             <nav className="header-nav">
                 {isAuthenticated ? (
                     <div className="nav-container">
-                        <Link to="/">Dashboard</Link>
-                        <Link to="/profile">Mon profil</Link>
+                        <NavLink to="/" end>Dashboard</NavLink>
+                        <NavLink to="/profile">Mon profil</NavLink>
                         <span className="nav-separator">|</span>
                         <button onClick={handleLogout} className="logout-btn">
                             Se déconnecter
@@ -48,7 +48,7 @@ const Header = () => {
                     </div>
                 ) : (
                     <div className="nav-container">
-                        <Link to="/login">Se connecter</Link>
+                        <NavLink to="/login">Se connecter</NavLink>
                     </div>
                 )}
             </nav>

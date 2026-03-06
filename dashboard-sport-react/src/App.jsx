@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserContext'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Profile from './pages/Profile/Profile'
 import Login from './pages/Login/Login'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/error" element={<Error />} />
             <Route path="*" element={<Navigate to="/error" replace />} />
           </Routes>
+          <Footer />
         </div>
       </UserProvider>
     </AuthProvider>

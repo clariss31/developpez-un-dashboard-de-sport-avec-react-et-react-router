@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 /**
  * Création du contexte d'authentification.
@@ -9,23 +8,22 @@ const AuthContext = createContext();
 
 /**
  * Provider pour le contexte d'authentification.
- * Gère l'état d'authentification et la persistance des données via les cookies.
+ * Gère l'état d'authentification et la persistance des données via localStorage.
  * @param {object} props - Props du composant
  * @param {React.ReactNode} props.children - Contenu à envelopper avec le provider
  * @returns {React.ReactElement} - AuthProvider avec son contenu
  */
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(Cookies.get('token'));
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
     useEffect(() => {
         if (token) {
-            // Cookie avec le token avec 1 jour d'expiration
-            Cookies.set('token', token, { expires: 1, secure: false, sameSite: 'strict' });
+            localStorage.setItem('token', token);
             setIsAuthenticated(true);
         } else {
-            Cookies.remove('token');
+            localStorage.removeItem('token');
             setIsAuthenticated(false);
         }
     }, [token]);
