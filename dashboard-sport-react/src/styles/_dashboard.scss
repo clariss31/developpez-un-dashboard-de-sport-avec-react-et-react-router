@@ -7,8 +7,8 @@
 
     .profile-card {
         background: white;
-        border-radius: 25px;
-        padding: 60px 50px 50px 50px;
+        border-radius: 20px;
+        padding: 32px 52px 32px 52px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -17,19 +17,6 @@
         position: relative;
         overflow: hidden;
         width: 100%;
-
-        // Effect de fondu vers le bas
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 140px;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-            pointer-events: none;
-            z-index: 2;
-        }
 
         &-left {
             display: flex;
