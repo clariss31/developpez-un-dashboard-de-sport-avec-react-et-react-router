@@ -1,7 +1,19 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { USER_MAIN_DATA, USER_ACTIVITY } from '../services/mockData';
 
+/**
+ * Création du contexte utilisateur.
+ * Ce contexte permettra de partager les données utilisateur entre les composants.
+ */
 const UserContext = createContext();
+
+/**
+ * Provider pour le contexte utilisateur.
+ * Gère l'état des données utilisateur et la persistance des données via les cookies.
+ * @param {object} props - Props du composant
+ * @param {React.ReactNode} props.children - Contenu à envelopper avec le provider
+ * @returns {React.ReactElement} - UserProvider avec son contenu
+ */
 
 export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(null);
@@ -9,7 +21,6 @@ export const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate fetching and filtering only shared data
         const fetchData = () => {
             const sharedProfile = {
                 firstName: USER_MAIN_DATA.profile.firstName,
@@ -46,7 +57,7 @@ export const UserProvider = ({ children }) => {
 export const useUser = () => {
     const context = useContext(UserContext);
     if (!context) {
-        throw new Error('useUser must be used within a UserProvider');
+        throw new Error('useUser doit être utilisé dans un UserProvider');
     }
     return context;
 };

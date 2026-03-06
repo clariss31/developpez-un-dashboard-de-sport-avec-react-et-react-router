@@ -1,7 +1,19 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
+/**
+ * Création du contexte d'authentification.
+ * Ce contexte permettra de partager l'état d'authentification entre les composants.
+ */
 const AuthContext = createContext();
+
+/**
+ * Provider pour le contexte d'authentification.
+ * Gère l'état d'authentification et la persistance des données via les cookies.
+ * @param {object} props - Props du composant
+ * @param {React.ReactNode} props.children - Contenu à envelopper avec le provider
+ * @returns {React.ReactElement} - AuthProvider avec son contenu
+ */
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(Cookies.get('token'));
@@ -9,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (token) {
-            // Store token in cookie with 1 day expiry and Secure attribute if possible
+            // Cookie avec le token avec 1 jour d'expiration
             Cookies.set('token', token, { expires: 1, secure: false, sameSite: 'strict' });
             setIsAuthenticated(true);
         } else {

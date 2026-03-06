@@ -1,21 +1,95 @@
 @import 'variables';
 
 .header {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
+    background-color: transparent;
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 
-    nav {
-        a {
-            color: white;
-            text-decoration: none;
-            margin-right: 15px;
+    .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 24px;
+        font-weight: 800;
+        color: $primary-color;
+        letter-spacing: 0.5px;
 
-            &:hover {
-                text-decoration: underline;
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+
+            span {
+                display: inline-block;
+                width: 4px;
+                border-radius: 2px;
+
+                &:nth-child(1) {
+                    height: 16px;
+                    background-color: #ff0000;
+                }
+
+                &:nth-child(2) {
+                    height: 24px;
+                    background-color: #000;
+                }
+
+                &:nth-child(3) {
+                    height: 12px;
+                    background-color: #ff0000;
+                }
+            }
+        }
+    }
+
+    .header-nav {
+        display: flex;
+        justify-content: flex-end;
+
+        .nav-container {
+            background-color: white;
+            padding: 10px 30px;
+            border-radius: 50px; // Pill shape
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+            a {
+                color: #555;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                transition: color 0.2s;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+
+            .nav-separator {
+                color: $primary-color;
+                font-weight: 300;
+                opacity: 0.5;
+            }
+
+            .logout-btn {
+                background: none;
+                border: none;
+                color: $primary-color;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                padding: 0;
+                transition: opacity 0.2s;
+                white-space: nowrap;
+
+                &:hover {
+                    opacity: 0.7;
+                }
             }
         }
     }

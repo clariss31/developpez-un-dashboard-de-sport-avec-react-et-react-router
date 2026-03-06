@@ -1,0 +1,170 @@
+@import 'variables';
+
+.login-page {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $background;
+    overflow: hidden;
+
+    .login-left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        position: relative;
+
+        .login-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: $primary-color;
+            letter-spacing: 0.5px;
+        }
+
+        .login-form-container {
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+            h1 {
+                text-align: left;
+                color: $primary-color;
+                font-size: 32px;
+                line-height: 1.2;
+                margin-top: 0;
+                margin-bottom: 40px;
+                font-weight: 700;
+            }
+
+            .form-title {
+                text-align: left;
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 25px;
+                color: #333;
+            }
+
+            .error-message {
+                text-align: left;
+                color: #ff4d4f;
+                background: #fff2f0;
+                border: 1px solid #ffccc7;
+                padding: 10px 15px;
+                border-radius: 6px;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .input-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    text-align: left;
+
+                    label {
+                        font-size: 13px;
+                        color: #666;
+                        font-weight: 500;
+                    }
+
+                    input {
+                        padding: 14px 16px;
+                        border: 1px solid #e0e0e0;
+                        border-radius: 8px;
+                        font-size: 15px;
+                        background: transparent;
+                        outline: none;
+                        transition: all 0.2s;
+                        color: $text-dark;
+
+                        &:-webkit-autofill,
+                        &:-webkit-autofill:hover,
+                        &:-webkit-autofill:focus,
+                        &:-webkit-autofill:active {
+                            -webkit-box-shadow: 0 0 0 30px white inset !important;
+                            -webkit-text-fill-color: $text-dark !important;
+                        }
+
+                        &:focus {
+                            border-color: $primary-color;
+                            box-shadow: 0 0 0 2px rgba(12, 35, 245, 0.1);
+                        }
+                    }
+                }
+
+                .submit-btn {
+                    background: $primary-color;
+                    color: white;
+                    padding: 16px;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    margin-top: 15px;
+                    transition: opacity 0.2s;
+                    width: 100%;
+
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+
+                .forgot-password {
+                    text-align: left;
+                    font-size: 13px;
+                    color: #666;
+                    margin-top: 15px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .login-right {
+        width: 808px;
+        min-width: 808px;
+        max-width: 50vw;
+        height: 100%;
+        background-image: url('../assets/images/login.png');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+        .image-overlay-text {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 16px 24px;
+            border-radius: 30px;
+            color: $primary-color;
+            font-size: 13px;
+            font-weight: 500;
+            max-width: 320px;
+            text-align: center;
+            line-height: 1.4;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    }
+}

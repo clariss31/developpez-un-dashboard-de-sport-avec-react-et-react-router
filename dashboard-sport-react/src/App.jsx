@@ -8,6 +8,12 @@ import Profile from './pages/Profile/Profile'
 import Login from './pages/Login/Login'
 import Error from './pages/Error/Error'
 
+/**
+ * Composant principal de l'application.
+ * Gère les routes et les contextes.
+ * @returns {React.ReactElement} - Composant principal
+ */
+
 function App() {
   return (
     <AuthProvider>

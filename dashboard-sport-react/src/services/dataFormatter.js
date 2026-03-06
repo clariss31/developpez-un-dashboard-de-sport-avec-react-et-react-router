@@ -144,3 +144,12 @@ export const getFormattedCaloriesBurnedByDate = () => {
     const caloriesBurned = USER_ACTIVITY[0].caloriesBurned;
     return caloriesBurned;
 };
+
+/**
+ * Get the avatar.
+ * @returns {string} The avatar.
+ */
+export const getAvatar = () => {
+    const avatar = USER_MAIN_DATA.profile.avatar;
+    return avatar;
+};
