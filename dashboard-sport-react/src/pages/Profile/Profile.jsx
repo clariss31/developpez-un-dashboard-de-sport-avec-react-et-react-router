@@ -18,10 +18,14 @@ const Profile = () => {
     const { profile, statistics } = userData;
 
     // Mode API → profile.profilePicture (URL backend)
-    // Mode mock → undefined → fallback sur l'asset local
+    // Mode mock → undefined → fallback sur l'asset local de Sophie
     const profileImg = profile.profilePicture || sophieAvatar;
 
-    // Formatter le temps total (secondes -> Heures + Minutes)
+    /**
+     * Formate une durée en secondes en un objet contenant les heures et minutes.
+     * @param {number} totalSeconds - Seconds totales
+     * @returns {object} - { hours, minutes }
+     */
     const formatDuration = (totalSeconds) => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -58,16 +62,16 @@ const Profile = () => {
                     <div className="details-title">Votre profil</div>
                     <div className="details-list">
                         <div className="detail-item">
-                            <strong>Âge :</strong> <span>{profile.age}</span>
+                            <p>Âge : {profile.age}</p>
                         </div>
                         <div className="detail-item">
-                            <strong>Genre :</strong> <span>{profile.gender || "Femme"}</span>
+                            <p>Genre : {profile.gender || "Femme"}</p>
                         </div>
                         <div className="detail-item">
-                            <strong>Taille :</strong> <span>{profile.height ? `${Math.floor(profile.height / 100)}m${profile.height % 100}` : "N/A"}</span>
+                            <p>Taille : {profile.height ? `${Math.floor(profile.height / 100)}m${profile.height % 100}` : "N/A"}</p>
                         </div>
                         <div className="detail-item">
-                            <strong>Poids :</strong> <span>{profile.weight}kg</span>
+                            <p>Poids : {profile.weight}kg</p>
                         </div>
                     </div>
                 </div>

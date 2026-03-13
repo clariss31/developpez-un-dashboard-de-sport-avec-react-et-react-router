@@ -9,20 +9,25 @@
     width: 100%;
 
     .header-logo {
-        height: 45px;
+        width: 132.97px;
+        height: 23.41px;
         display: flex;
         align-items: center;
-        gap: 12px;
+        position: relative;
 
-        a {
-            height: 100%;
+        .logo-text {
+            position: absolute;
+            top: 0.33px;
+            left: 41.94px;
+            height: 22.75px;
             display: flex;
             align-items: center;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 24.5px;
             font-weight: 800;
             color: $primary-color;
             letter-spacing: 0.5px;
+            line-height: 1;
         }
     }
 
@@ -36,7 +41,7 @@
             border-radius: 40px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 40px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             flex-wrap: nowrap;
             margin-right: 20px;
@@ -49,7 +54,6 @@
                 transition: color 0.2s;
                 white-space: nowrap;
 
-                &.active,
                 &:hover {
                     color: $primary-color;
                 }

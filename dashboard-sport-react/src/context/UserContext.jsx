@@ -81,7 +81,7 @@ export const UserProvider = ({ children }) => {
                     date: session.date,
                     distance: session.distance,
                     duration: session.duration,
-                    heartRate: session.heartRate, // important for the chart!
+                    heartRate: session.heartRate,
                 }));
 
                 setUserData({

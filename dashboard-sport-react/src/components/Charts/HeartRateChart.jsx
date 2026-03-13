@@ -1,6 +1,18 @@
 import React from 'react';
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+/**
+ * Graphique combiné (barres + ligne) affichant la fréquence cardiaque.
+ * Affiche les valeurs Min/Max par jour et la ligne de moyenne.
+ * 
+ * @param {object} props
+ * @param {Array} props.data - Données journalières ({day, min, max, averageCurve})
+ * @param {number} props.average - Moyenne globale BPM
+ * @param {string} props.dateRange - Libellé de la plage de dates
+ * @param {function} props.onPrev - Handler pour reculer dans le temps
+ * @param {function} props.onNext - Handler pour avancer dans le temps
+ * @param {boolean} props.isNextDisabled - État du bouton "Suivant"
+ */
 const HeartRateChart = ({ data, average, dateRange, onPrev, onNext, isNextDisabled }) => {
     return (
         <div className="chart-card heart-rate-chart">

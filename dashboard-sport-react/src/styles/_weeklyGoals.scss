@@ -3,20 +3,25 @@
     padding-bottom: 60px;
 
     .section-header {
-        margin-bottom: 25px;
+        margin-bottom: 32px;
 
         .section-title {
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
             color: $text-dark;
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
+            line-height: 100%;
         }
 
         .date-range {
-            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
             color: #888;
             margin: 0;
-            font-weight: 500;
+            line-height: 100%;
+            text-align: left;
         }
     }
 

@@ -4,6 +4,11 @@ import * as formatter from '../../services/dataFormatter';
 import DistanceChart from './DistanceChart';
 import HeartRateChart from './HeartRateChart';
 
+/**
+ * Section regroupant les graphiques de performances (Distance et Fréquence Cardiaque).
+ * Gère les états d'offset pour naviguer dans l'historique des données.
+ * @returns {React.ReactElement}
+ */
 const Performances = () => {
     const { userData } = useUser();
     const [distanceOffset, setDistanceOffset] = useState(0);

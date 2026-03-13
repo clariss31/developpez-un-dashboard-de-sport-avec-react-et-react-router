@@ -50,14 +50,14 @@ $bar-heights: 28px, 38px, 44px, 22px, 40px;
 
     // ─── Taille Header ─────────────────────────────────────────────────────────
     &--header {
-        height: 32px;
+        height: 23.41px;
 
         .animated-bars__bar {
             width: 4px;
 
             @for $i from 1 through 5 {
                 &--#{$i} {
-                    height: nth($bar-heights, $i);
+                    height: nth($bar-heights, $i) * 0.53;
                 }
             }
         }

@@ -108,6 +108,7 @@ export const getWeeklyDistanceData = (activity, monthOffset = 0) => {
             totalDistanceStr += session.distance;
             sessionsInPeriod++;
 
+            // Attribution à l'une des 4 colonnes (S1 à S4)
             // Inverser pour que S4 soit le plus récent (à droite du graphique)
             const weekIdx = 3 - Math.floor(diffDays / 7);
             if (weekIdx >= 0 && weekIdx < 4) {
@@ -199,9 +200,10 @@ export const getLast7DaysHeartRateData = (activity, weekOffset = 0) => {
 };
 
 /**
+ * Calcule l'impact des moyennes glissantes sur 7 jours.
  * Extrait les statistiques de la semaine en cours (les 7 derniers jours).
  * @param {Array} activity - Tableau d'activités
- * @returns {object} - Total duration and total distance
+ * @returns {object} - Durée totale et distance totale
  */
 export const getCurrentWeekStats = (activity) => {
     if (!activity || !activity.length) return { duration: 0, distance: 0 };

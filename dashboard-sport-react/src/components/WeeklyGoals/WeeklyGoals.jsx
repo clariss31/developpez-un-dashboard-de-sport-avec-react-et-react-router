@@ -13,7 +13,7 @@ const WeeklyGoals = () => {
     const { distance, duration } = formatter.getCurrentWeekStats(userData.activity);
     const dateRange = formatter.getCurrentWeekDateRange(userData.activity);
 
-    // Hardcoded data based on the mockup requirements
+    // Données codées en dur basées sur les exigences de la maquette (Mockup)
     const targetCourses = 6;
     const completedCourses = 4;
     const remainingCourses = targetCourses - completedCourses;
@@ -33,7 +33,7 @@ const WeeklyGoals = () => {
             </div>
 
             <div className="weekly-goals-content">
-                {/* Left side: Goals Donut Chart */}
+                {/* Partie gauche : Graphique Donut des objectifs */}
                 <div className="goals-card">
                     <div className="goals-header">
                         <div className="goals-count">
@@ -75,7 +75,7 @@ const WeeklyGoals = () => {
                     </div>
                 </div>
 
-                {/* Right side: Stats Cards */}
+                {/* Partie droite : Cartes Statistiques */}
                 <div className="stats-cards">
                     <div className="stat-card duration-card">
                         <h3 className="stat-title">Durée d'activité</h3>

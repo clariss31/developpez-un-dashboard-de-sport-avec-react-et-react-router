@@ -1,6 +1,10 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+/**
+ * Composant de tooltip personnalisé pour le graphique de distance.
+ * @param {object} props - Propriétés du composant (passées par Recharts)
+ */
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         const { range, distance } = payload[0].payload;
@@ -27,6 +31,18 @@ const CustomTooltip = ({ active, payload }) => {
     return null;
 };
 
+/**
+ * Graphique à barres affichant la distance parcourue.
+ * Gère la navigation par périodes (offset).
+ * 
+ * @param {object} props
+ * @param {Array} props.data - Données des semaines ({name, distance, range})
+ * @param {number} props.average - Moyenne de distance sur la période
+ * @param {string} props.dateRange - Libellé de la plage de dates actuelle
+ * @param {function} props.onPrev - Handler pour reculer dans le temps
+ * @param {function} props.onNext - Handler pour avancer dans le temps
+ * @param {boolean} props.isNextDisabled - État du bouton "Suivant"
+ */
 const DistanceChart = ({ data, average, dateRange, onPrev, onNext, isNextDisabled }) => {
     return (
         <div className="chart-card distance-chart">

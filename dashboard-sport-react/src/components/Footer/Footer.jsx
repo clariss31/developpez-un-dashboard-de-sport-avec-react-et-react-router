@@ -5,7 +5,7 @@ import AnimatedBars from '../AnimatedBars/AnimatedBars';
 const Footer = () => {
     const location = useLocation();
 
-    // Do not display Footer on the login page
+    // Ne pas afficher le Footer sur la page de connexion
     if (location.pathname === '/login') {
         return null;
     }
