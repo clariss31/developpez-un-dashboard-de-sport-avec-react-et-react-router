@@ -1,6 +1,32 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+        const { range, distance } = payload[0].payload;
+        return (
+            <div className="custom-tooltip" style={{
+                backgroundColor: '#000',
+                padding: '12px 18px',
+                borderRadius: '10px',
+                color: '#fff',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
+                minWidth: '100px',
+                margin: '0'
+            }}>
+                <p style={{ margin: 0, fontSize: '14px', color: '#e0e0e0', whiteSpace: 'nowrap' }}>{range}</p>
+                <p style={{ margin: 0, fontSize: '22px', fontWeight: '600', whiteSpace: 'nowrap' }}>
+                    {distance.toLocaleString('fr-FR')} km
+                </p>
+            </div>
+        );
+    }
+    return null;
+};
+
 const DistanceChart = ({ data, average, dateRange, onPrev, onNext, isNextDisabled }) => {
     return (
         <div className="chart-card distance-chart">
@@ -49,8 +75,8 @@ const DistanceChart = ({ data, average, dateRange, onPrev, onNext, isNextDisable
                             tick={{ fill: '#999', fontSize: 12 }}
                         />
                         <Tooltip
-                            cursor={{ fill: '#f4f4f4' }}
-                            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
+                            content={<CustomTooltip />}
+                            cursor={{ fill: 'rgba(0,0,0,0.1)' }}
                         />
                         <Bar
                             dataKey="distance"

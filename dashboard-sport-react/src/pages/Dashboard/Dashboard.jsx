@@ -20,13 +20,16 @@ const Dashboard = () => {
 
     const { profile, statistics } = userData;
 
+    // Priorité : URL backend (mode API) → asset local (mode mock / fallback)
+    const profileImg = profile.profilePicture || formatter.getAvatarPath(profile.firstName);
+
     return (
         <main className="dashboard">
             <section className="profile-card">
                 <div className="profile-card-left">
                     <div className="profile-image-container">
                         <img
-                            src={formatter.getAvatarPath(profile.firstName)}
+                            src={profileImg}
                             alt={profile.firstName}
                             className="profile-image"
                         />

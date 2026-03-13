@@ -17,8 +17,9 @@ const Profile = () => {
 
     const { profile, statistics } = userData;
 
-    // Fix pour l'image locale si l'URL mockée échoue ou est sur le port 8000
-    const profileImg = profile.firstName === "Sophie" ? sophieAvatar : (profile.profilePicture || sophieAvatar);
+    // Mode API → profile.profilePicture (URL backend)
+    // Mode mock → undefined → fallback sur l'asset local
+    const profileImg = profile.profilePicture || sophieAvatar;
 
     // Formatter le temps total (secondes -> Heures + Minutes)
     const formatDuration = (totalSeconds) => {

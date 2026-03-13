@@ -1,0 +1,82 @@
+// ─── Variables ─────────────────────────────────────────────────────────────────
+$bars-color-top:    #ff6b6b;                           // Coral/rouge (captures)
+$bars-color-bottom: #5b6bfc;                           // Violet/bleu (fin d'anim)
+$anim-dur:          1500ms;                            // 1,5 sec demandé
+$anim-delay:        $anim-dur / 5;                     // Délai entre chaque barre
+
+// Hauteurs MAX et MIN de chaque barre (capture 1 = début, valeurs en px)
+// Ordre : barre 1 à 5 — pattern décroissant-croissant comme dans les captures
+$bar-heights: 28px, 38px, 44px, 22px, 40px;
+
+// ─── Keyframes ─────────────────────────────────────────────────────────────────
+@keyframes bars {
+    from {
+        transform: scaleY(0.35);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+// ─── Composant ─────────────────────────────────────────────────────────────────
+.animated-bars {
+    display: flex;
+    align-items: flex-end;        // Barres alignées par le bas
+    gap: 3px;
+    transform-origin: bottom;
+
+    &__bar {
+        display: inline-block;
+        width: 4px;
+        border-radius: 3px;
+        transform-origin: bottom center;
+
+        // Gradient rouge → violet comme dans les captures
+        background: linear-gradient(
+            to bottom,
+            $bars-color-top 0%,
+            $bars-color-bottom 100%
+        );
+
+        // Boucle SCSS : délais décalés + direction alternée pour chaque barre
+        // Le pattern est identique à l'exemple fourni
+        @for $i from 1 through 5 {
+            &--#{$i} {
+                height: nth($bar-heights, $i);
+                animation: bars $anim-dur ($anim-delay * $i) infinite ease-in-out alternate backwards;
+            }
+        }
+    }
+
+    // ─── Taille Header ─────────────────────────────────────────────────────────
+    &--header {
+        height: 32px;
+
+        .animated-bars__bar {
+            width: 4px;
+
+            @for $i from 1 through 5 {
+                &--#{$i} {
+                    height: nth($bar-heights, $i);
+                }
+            }
+        }
+    }
+
+    // ─── Taille Footer ─────────────────────────────────────────────────────────
+    &--footer {
+        height: 20px;
+
+        .animated-bars__bar {
+            width: 3px;
+
+            @for $i from 1 through 5 {
+                &--#{$i} {
+                    // Réduction proportionnelle (~55%) pour le footer
+                    $ratio: 0.42;
+                    height: nth($bar-heights, $i) * $ratio;
+                }
+            }
+        }
+    }
+}

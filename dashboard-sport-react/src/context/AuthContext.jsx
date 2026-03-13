@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 /**
  * Création du contexte d'authentification.
@@ -18,22 +18,19 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
-    useEffect(() => {
-        if (token) {
-            localStorage.setItem('token', token);
-            setIsAuthenticated(true);
-        } else {
-            localStorage.removeItem('token');
-            setIsAuthenticated(false);
-        }
-    }, [token]);
 
     const login = (newToken) => {
+        // Écriture synchrone : localStorage est à jour AVANT que
+        // UserContext ne réagisse au changement de token et appelle l'API
+        localStorage.setItem('token', newToken);
         setToken(newToken);
+        setIsAuthenticated(true);
     };
 
     const logout = () => {
+        localStorage.removeItem('token');
         setToken(null);
+        setIsAuthenticated(false);
     };
 
     return (

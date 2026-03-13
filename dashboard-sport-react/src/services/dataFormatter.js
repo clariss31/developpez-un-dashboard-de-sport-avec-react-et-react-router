@@ -116,7 +116,24 @@ export const getWeeklyDistanceData = (activity, monthOffset = 0) => {
         }
     });
 
-    weeks.forEach(w => w.distance = Math.round(w.distance));
+    weeks.forEach((w, i) => {
+        w.distance = Math.round(w.distance * 10) / 10;
+        
+        // Calculer la plage de dates pour chaque semaine
+        // weekIdx 3 (S4) est la plus récente : [referenceDate - 6j, referenceDate]
+        // weekIdx 0 (S1) est la plus ancienne : [referenceDate - 27j, referenceDate - 21j]
+        const daysAgoEnd = (3 - i) * 7;
+        const daysAgoStart = daysAgoEnd + 6;
+        
+        const end = new Date(referenceDate);
+        end.setDate(end.getDate() - daysAgoEnd);
+        
+        const start = new Date(referenceDate);
+        start.setDate(start.getDate() - daysAgoStart);
+        
+        const pad = (n) => n.toString().padStart(2, '0');
+        w.range = `${pad(start.getDate())}.${pad(start.getMonth() + 1)} au ${pad(end.getDate())}.${pad(end.getMonth() + 1)}`;
+    });
     const average = Math.round(totalDistanceStr / 4);
 
     const oldestDate = new Date(referenceDate);

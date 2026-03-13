@@ -6,7 +6,7 @@ export const USER_MAIN_DATA = {
         "age": 32, // profile
         "weight": 60, // profile
         "height": 165, // profile
-        "profilePicture": "http://localhost:8000/images/sophie.jpg" // dashboard & profile
+        // profilePicture absent → fallback sur l'asset local via getAvatarPath()
     },
     "statistics": {
         "totalDistance": "2250.2", // dashboard & profile

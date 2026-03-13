@@ -12,6 +12,7 @@
         height: 45px;
         display: flex;
         align-items: center;
+        gap: 12px;
 
         a {
             height: 100%;
@@ -34,10 +35,10 @@
             border-radius: 40px;
             display: flex;
             align-items: center;
-            gap: 12px; // Reduced further to prevent overflow
+            gap: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             flex-wrap: nowrap;
-            margin-right: 20px; // Ensure it doesn't touch the right edge
+            margin-right: 20px;
 
             a {
                 color: #555;

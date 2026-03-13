@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as apiService from '../services/apiService';
+import { useAuth } from './AuthContext';
 
 /**
  * Création du contexte utilisateur.
@@ -16,23 +17,27 @@ const UserContext = createContext();
  */
 
 export const UserProvider = ({ children }) => {
+    const { token } = useAuth();
     const [userData, setUserData] = useState(null);
     const [userActivity, setUserActivity] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        // Ne charge les données que si un token JWT est disponible
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
         const loadData = async () => {
             setLoading(true);
             setError(null);
 
             try {
-                // Pour l'instant on utilise un ID par défaut, 
-                // à lier plus tard avec l'authentification réelle
-                const userId = 1;
-
-                const mainData = await apiService.getUserMainData(userId);
-                const activityData = await apiService.getUserActivity(userId);
+                // Le backend identifie l'utilisateur via le token JWT
+                const mainData = await apiService.getUserMainData();
+                const activityData = await apiService.getUserActivity();
 
                 const sharedProfile = {
                     firstName: mainData.profile.firstName,
@@ -73,7 +78,7 @@ export const UserProvider = ({ children }) => {
         };
 
         loadData();
-    }, []);
+    }, [token]); // Re-charge si le token change (login/logout)
 
     return (
         <UserContext.Provider value={{ userData, userActivity, loading, error }}>
