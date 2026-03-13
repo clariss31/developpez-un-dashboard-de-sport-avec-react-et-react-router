@@ -20,8 +20,7 @@ export const AuthProvider = ({ children }) => {
 
 
     const login = (newToken) => {
-        // Écriture synchrone : localStorage est à jour AVANT que
-        // UserContext ne réagisse au changement de token et appelle l'API
+        // Écriture synchrone : localStorage est à jour AVANT que UserContext ne réagisse au changement de token et appelle l'API
         localStorage.setItem('token', newToken);
         setToken(newToken);
         setIsAuthenticated(true);

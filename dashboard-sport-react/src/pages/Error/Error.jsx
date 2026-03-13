@@ -9,10 +9,12 @@ import { Link } from 'react-router-dom';
 
 const Error = () => {
     return (
-        <div>
-            <h1>404 - Page non trouvée</h1>
-            <p>Désolé, la page que vous recherchez n'existe pas.</p>
-            <Link to="/">Retourner au dashboard</Link>
+        <div className="error-page">
+            <h1 className="error-title">404</h1>
+            <p className="error-text">Oups ! La page que vous demandez n'existe pas.</p>
+            <div className="error-btn-container">
+                <Link to="/" className="error-btn">Retourner sur la page d'accueil</Link>
+            </div>
         </div>
     );
 };

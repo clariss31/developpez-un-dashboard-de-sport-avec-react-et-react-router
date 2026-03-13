@@ -90,15 +90,18 @@ const DistanceChart = ({ data, average, dateRange, onPrev, onNext, isNextDisable
                             tickLine={false}
                             tick={{ fill: '#999', fontSize: 12 }}
                         />
-                        <Tooltip
-                            content={<CustomTooltip />}
-                            cursor={{ fill: 'rgba(0,0,0,0.1)' }}
-                        />
                         <Bar
                             dataKey="distance"
                             fill="#a9b2f6"
-                            radius={[10, 10, 0, 0]}
+                            radius={[20, 20, 20, 20]}
+                            activeBar={{ fill: '#0b23f4' }}
                             name="Km"
+                            // Custom style to slightly lift the bars
+                            style={{ transform: 'translateY(-2px)' }}
+                        />
+                        <Tooltip
+                            content={<CustomTooltip />}
+                            cursor={{ fill: 'rgba(0,0,0,0.1)' }}
                         />
                     </BarChart>
                 </ResponsiveContainer>

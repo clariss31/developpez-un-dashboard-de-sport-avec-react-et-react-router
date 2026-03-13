@@ -32,8 +32,8 @@
 
         .goals-card {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 10px;
+            padding: 32px 38px 32px 38px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
             display: flex;
             flex-direction: column;
@@ -128,13 +128,13 @@
 
             .stat-card {
                 background: white;
-                border-radius: 20px;
-                padding: 30px 40px;
+                border-radius: 10px;
+                padding: 20px 30px 20px 30px;
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-                flex: 1;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                gap: 16px;
 
                 .stat-title {
                     font-size: 14px;
@@ -149,7 +149,7 @@
                     margin: 0;
 
                     .number {
-                        font-size: 32px;
+                        font-size: 22px;
                         font-weight: 700;
                         color: $primary-color;
                         margin-right: 5px;

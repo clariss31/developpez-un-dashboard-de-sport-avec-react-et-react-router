@@ -10,7 +10,7 @@
     font-weight: $font-weight;
 
     color-scheme: light dark;
-    color: $text-light;
+    color: $text-dark;
     background-color: $background;
 
     font-synthesis: none;
@@ -29,7 +29,7 @@ body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    overflow-x: hidden; // Prevent horizontal scroll globally
+    overflow-x: hidden;
 }
 
 h1 {
@@ -56,4 +56,15 @@ button {
     &:focus-visible {
         outline: 4px auto -webkit-focus-ring-color;
     }
+}
+
+.logo-text-shared {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 750;
+    color: $primary-color;
+    letter-spacing: 0.5px;
+    line-height: 100%;
 }

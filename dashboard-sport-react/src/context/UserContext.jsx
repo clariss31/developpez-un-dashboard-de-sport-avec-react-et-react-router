@@ -68,13 +68,21 @@ export const UserProvider = ({ children }) => {
                     age: mainData.profile.age,
                     weight: mainData.profile.weight,
                     height: mainData.profile.height,
-                    gender: mainData.profile.gender || "Femme",
+                    gender: mainData.profile.gender === 'male' ? 'Homme' :
+                        mainData.profile.gender === 'female' ? 'Femme' :
+                            (mainData.profile.gender || "Non renseigné"),
                 };
 
+                // Calcul dynamique des statistiques basé sur la somme des activités
+                // Cela garantit la cohérence entre le mode Mock et le mode API
+                const calculatedDistance = activityData.reduce((sum, s) => sum + (s.distance || 0), 0).toFixed(1);
+                const calculatedDuration = activityData.reduce((sum, s) => sum + (s.duration || 0), 0);
+                const calculatedSessions = activityData.length;
+
                 const sharedStats = {
-                    totalDistance: mainData.statistics.totalDistance,
-                    totalDuration: mainData.statistics.totalDuration,
-                    totalSessions: mainData.statistics.totalSessions,
+                    totalDistance: calculatedDistance,
+                    totalDuration: calculatedDuration,
+                    totalSessions: calculatedSessions,
                 };
 
                 const sharedActivity = activityData.map(session => ({

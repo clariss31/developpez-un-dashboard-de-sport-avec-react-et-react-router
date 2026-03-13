@@ -34,8 +34,6 @@
                 border-radius: 10px;
                 cursor: pointer;
                 position: relative;
-                -webkit-mask-image: -webkit-radial-gradient(white, black); // Fix for safari/chrome clipping
-                mask-image: -webkit-radial-gradient(white, black);
 
                 .profile-image {
                     width: 100%;
@@ -90,7 +88,7 @@
             .distance-box {
                 background: $primary-color;
                 color: white;
-                border: 1px solid rgba(255, 255, 255, 0.2); // Adding a subtle border as per border-width request
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 10px;
                 display: flex;
                 align-items: center;
@@ -148,7 +146,7 @@
                     .value {
                         font-size: 24px;
                         font-weight: 700;
-                        margin: 0 0 5px 0;
+                        margin: 0 0 10px 0;
 
                         &.blue {
                             color: $primary-color;
@@ -216,7 +214,6 @@
             .chart-body {
                 margin-bottom: 20px;
 
-                /* Customizing recharts grid lines */
                 .recharts-cartesian-grid-horizontal line {
                     stroke: #f0f0f0;
                 }

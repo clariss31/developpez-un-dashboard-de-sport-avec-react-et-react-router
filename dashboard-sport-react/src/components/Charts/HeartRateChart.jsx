@@ -69,14 +69,16 @@ const HeartRateChart = ({ data, average, dateRange, onPrev, onNext, isNextDisabl
                         <Bar
                             dataKey="min"
                             fill="#ffb4b4"
-                            radius={[6, 6, 0, 0]}
+                            radius={[10, 10, 10, 10]}
                             name="Min BPM"
+                            style={{ transform: 'translateY(-2px)' }}
                         />
                         <Bar
                             dataKey="max"
                             fill="#ff3b1d"
-                            radius={[6, 6, 0, 0]}
+                            radius={[10, 10, 10, 10]}
                             name="Max BPM"
+                            style={{ transform: 'translateY(-2px)' }}
                         />
                         <Line
                             type="monotone"
@@ -86,6 +88,7 @@ const HeartRateChart = ({ data, average, dateRange, onPrev, onNext, isNextDisabl
                             dot={{ r: 3, fill: '#0c23f5', stroke: '#0c23f5' }}
                             activeDot={{ r: 5 }}
                             name="Moyenne"
+                            connectNulls={true}
                         />
                     </ComposedChart>
                 </ResponsiveContainer>

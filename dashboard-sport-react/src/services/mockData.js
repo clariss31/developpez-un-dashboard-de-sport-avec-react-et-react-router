@@ -6,6 +6,7 @@ export const USER_MAIN_DATA = {
         "age": 32, // profile
         "weight": 60, // profile
         "height": 165, // profile
+        "gender": "female", // profile
         // profilePicture absent → fallback sur l'asset local via getAvatarPath()
     },
     "statistics": {

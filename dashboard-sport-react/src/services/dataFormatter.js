@@ -119,19 +119,19 @@ export const getWeeklyDistanceData = (activity, monthOffset = 0) => {
 
     weeks.forEach((w, i) => {
         w.distance = Math.round(w.distance * 10) / 10;
-        
+
         // Calculer la plage de dates pour chaque semaine
         // weekIdx 3 (S4) est la plus récente : [referenceDate - 6j, referenceDate]
         // weekIdx 0 (S1) est la plus ancienne : [referenceDate - 27j, referenceDate - 21j]
         const daysAgoEnd = (3 - i) * 7;
         const daysAgoStart = daysAgoEnd + 6;
-        
+
         const end = new Date(referenceDate);
         end.setDate(end.getDate() - daysAgoEnd);
-        
+
         const start = new Date(referenceDate);
         start.setDate(start.getDate() - daysAgoStart);
-        
+
         const pad = (n) => n.toString().padStart(2, '0');
         w.range = `${pad(start.getDate())}.${pad(start.getMonth() + 1)} au ${pad(end.getDate())}.${pad(end.getMonth() + 1)}`;
     });
@@ -160,43 +160,63 @@ export const getWeeklyDistanceData = (activity, monthOffset = 0) => {
 export const getLast7DaysHeartRateData = (activity, weekOffset = 0) => {
     if (!activity || !activity.length) return { data: [], average: 0, dateRange: '' };
 
+    // 1. Trier pour trouver la date de la dernière activité (Référence)
     const sortedActivity = [...activity].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const latestDate = new Date(`${sortedActivity[0].date}T12:00:00`);
 
-    // On prend 7 sessions consécutives en fonction de l'offset
-    const startIndex = weekOffset * 7;
-    const selectedSessions = sortedActivity.slice(startIndex, startIndex + 7);
+    // 2. Trouver le lundi de cette semaine
+    const dayOfWeek = latestDate.getDay(); // 0=Dim, 1=Lun...
+    const diffToMonday = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+    const targetMonday = new Date(latestDate);
+    targetMonday.setDate(targetMonday.getDate() - diffToMonday - (weekOffset * 7));
 
-    if (!selectedSessions.length) return { data: [], average: 0, dateRange: '' };
-
-    const mockDays = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-    const last7DaysData = [];
+    const dayLabelsArr = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+    const resultData = [];
     let sumAvg = 0;
+    let nSessions = 0;
 
-    selectedSessions.forEach(session => {
-        const sessionDate = new Date(session.date);
-        last7DaysData.push({
-            day: mockDays[sessionDate.getDay() === 0 ? 6 : sessionDate.getDay() - 1],
-            min: session.heartRate.min,
-            max: session.heartRate.max,
-            averageCurve: session.heartRate.average,
-            timestamp: sessionDate.getTime()
-        });
-        sumAvg += session.heartRate.average;
-    });
+    // 3. Boucler sur les 7 jours (Lun -> Dim)
+    for (let i = 0; i < 7; i++) {
+        const currentDate = new Date(targetMonday);
+        currentDate.setDate(currentDate.getDate() + i);
+        const dateStr = currentDate.toISOString().split('T')[0];
 
-    // Trier pour l'affichage chronologique
-    last7DaysData.sort((a, b) => a.timestamp - b.timestamp);
+        // On cherche une session pour ce jour précis
+        const session = activity.find(s => s.date === dateStr);
 
-    const average = Math.round(sumAvg / selectedSessions.length);
+        if (session) {
+            resultData.push({
+                day: dayLabelsArr[i],
+                min: session.heartRate.min,
+                max: session.heartRate.max,
+                averageCurve: session.heartRate.average,
+                timestamp: currentDate.getTime()
+            });
+            sumAvg += session.heartRate.average;
+            nSessions++;
+        } else {
+            // Jour sans données : on l'ajoute avec des valeurs nulles pour fixer l'axe X
+            resultData.push({
+                day: dayLabelsArr[i],
+                min: null,
+                max: null,
+                averageCurve: null,
+                timestamp: currentDate.getTime()
+            });
+        }
+    }
 
-    const newestDate = new Date(selectedSessions[0].date);
-    const oldestDate = new Date(selectedSessions[selectedSessions.length - 1].date);
+    const average = nSessions > 0 ? Math.round(sumAvg / nSessions) : 0;
 
+    // Plage de dates pour le titre
+    const targetSunday = new Date(targetMonday);
+    targetSunday.setDate(targetSunday.getDate() + 6);
+    
     const fMonth = (d) => d.toLocaleString('fr-FR', { month: 'short' });
     const fDay = (d) => d.getDate();
-    const dateRange = `${fDay(oldestDate)} ${fMonth(oldestDate)} - ${fDay(newestDate)} ${fMonth(newestDate)}`;
+    const dateRangeStr = `${fDay(targetMonday)} ${fMonth(targetMonday)} - ${fDay(targetSunday)} ${fMonth(targetSunday)}`;
 
-    return { data: last7DaysData, average, dateRange };
+    return { data: resultData, average, dateRange: dateRangeStr };
 };
 
 /**

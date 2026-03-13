@@ -184,15 +184,3 @@
         }
     }
 }
-
-@media (max-width: 1024px) {
-    .profile-page {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .profile-page .profile-right .stats-grid {
-        grid-template-columns: 1fr;
-    }
-}

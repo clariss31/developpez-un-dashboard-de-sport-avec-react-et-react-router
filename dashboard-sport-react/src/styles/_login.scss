@@ -18,13 +18,8 @@
         position: relative;
 
         .login-logo {
-            display: flex;
-            align-items: center;
+            @extend .logo-text-shared;
             gap: 10px;
-            font-size: 24px;
-            font-weight: 800;
-            color: $primary-color;
-            letter-spacing: 0.5px;
         }
 
         .login-form-container {

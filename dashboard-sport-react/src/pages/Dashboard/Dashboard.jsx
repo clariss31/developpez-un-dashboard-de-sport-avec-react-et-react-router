@@ -5,6 +5,7 @@ import iconeDistance from '../../assets/images/icone-distance.png';
 import Performances from '../../components/Charts/Performances';
 import WeeklyGoals from '../../components/WeeklyGoals/WeeklyGoals';
 import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 /**
  * Page de tableau de bord.
@@ -16,7 +17,7 @@ const Dashboard = () => {
     const { userData, loading, error } = useUser();
 
     if (error) {
-        return <div className="error-message">Erreur : {error}</div>;
+        return <ErrorMessage message={error} />;
     }
 
     if (loading || !userData) {

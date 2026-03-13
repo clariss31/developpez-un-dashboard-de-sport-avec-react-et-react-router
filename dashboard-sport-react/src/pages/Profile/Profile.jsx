@@ -1,5 +1,7 @@
 import React from 'react';
 import { useUser } from '../../context/UserContext';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import sophieAvatar from '../../assets/images/sophie.png';
 
 /**
@@ -11,8 +13,8 @@ import sophieAvatar from '../../assets/images/sophie.png';
 const Profile = () => {
     const { userData, loading, error } = useUser();
 
-    if (loading) return <div className="loading">Chargement...</div>;
-    if (error) return <div className="error">{error}</div>;
+    if (loading) return <Loader text="Chargement de votre profil..." />;
+    if (error) return <ErrorMessage message={error} />;
     if (!userData) return <div className="no-data">Aucune donnée trouvée</div>;
 
     const { profile, statistics } = userData;
@@ -65,7 +67,7 @@ const Profile = () => {
                             <p>Âge : {profile.age}</p>
                         </div>
                         <div className="detail-item">
-                            <p>Genre : {profile.gender || "Femme"}</p>
+                            <p>Genre : {profile.gender}</p>
                         </div>
                         <div className="detail-item">
                             <p>Taille : {profile.height ? `${Math.floor(profile.height / 100)}m${profile.height % 100}` : "N/A"}</p>
@@ -113,7 +115,7 @@ const Profile = () => {
                     <div className="stat-card">
                         <div className="stat-label">Nombre de sessions</div>
                         <div className="stat-value">
-                            41 <span>sessions</span>
+                            {statistics.totalSessions} <span>sessions</span>
                         </div>
                     </div>
                 </div>
