@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import logo from '../../assets/images/logo.png';
 import AnimatedBars from '../AnimatedBars/AnimatedBars';
 
 /**
@@ -34,8 +33,8 @@ const Header = () => {
         <header className="header">
             <div className="header-logo">
                 <AnimatedBars context="header" />
-                <Link to="/">
-                    <img src={logo} alt="SportSee Logo" />
+                <Link to="/" className="logo-text">
+                    SPORTSEE
                 </Link>
             </div>
             <nav className="header-nav">

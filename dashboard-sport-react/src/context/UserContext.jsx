@@ -17,7 +17,7 @@ const UserContext = createContext();
  */
 
 export const UserProvider = ({ children }) => {
-    const { token } = useAuth();
+    const { token, logout } = useAuth();
     const [userData, setUserData] = useState(null);
     const [userActivity, setUserActivity] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,10 +34,31 @@ export const UserProvider = ({ children }) => {
             setLoading(true);
             setError(null);
 
+            let mainData = null;
+            let activityData = [];
+
             try {
                 // Le backend identifie l'utilisateur via le token JWT
-                const mainData = await apiService.getUserMainData();
-                const activityData = await apiService.getUserActivity();
+                try {
+                    mainData = await apiService.getUserMainData();
+                } catch (err) {
+                    if (err.status === 401) {
+                        logout();
+                        return; // Arrêt du chargement (redirection automatique)
+                    }
+                    throw new Error("Impossible de charger les données principales");
+                }
+
+                try {
+                    activityData = await apiService.getUserActivity();
+                } catch (err) {
+                    if (err.status === 401) {
+                        logout();
+                        return; // Arrêt du chargement (redirection automatique)
+                    }
+                    console.error("Erreur chargement activité:", err);
+                    // Laisse activityData comme un tableau vide, permettant au profil de s'afficher
+                }
 
                 const sharedProfile = {
                     firstName: mainData.profile.firstName,
@@ -70,7 +91,7 @@ export const UserProvider = ({ children }) => {
                 });
                 setUserActivity(sharedActivity);
             } catch (err) {
-                setError("Impossible de charger les données utilisateur");
+                setError(err.message || "Impossible de charger les données utilisateur");
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -78,7 +99,7 @@ export const UserProvider = ({ children }) => {
         };
 
         loadData();
-    }, [token]); // Re-charge si le token change (login/logout)
+    }, [token, logout]); // Re-charge si le token change (login/logout)
 
     return (
         <UserContext.Provider value={{ userData, userActivity, loading, error }}>

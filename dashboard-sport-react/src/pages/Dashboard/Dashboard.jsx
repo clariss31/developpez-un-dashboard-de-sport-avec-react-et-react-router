@@ -4,6 +4,7 @@ import * as formatter from '../../services/dataFormatter';
 import iconeDistance from '../../assets/images/icone-distance.png';
 import Performances from '../../components/Charts/Performances';
 import WeeklyGoals from '../../components/WeeklyGoals/WeeklyGoals';
+import Loader from '../../components/Loader/Loader';
 
 /**
  * Page de tableau de bord.
@@ -12,10 +13,14 @@ import WeeklyGoals from '../../components/WeeklyGoals/WeeklyGoals';
  */
 
 const Dashboard = () => {
-    const { userData, loading } = useUser();
+    const { userData, loading, error } = useUser();
+
+    if (error) {
+        return <div className="error-message">Erreur : {error}</div>;
+    }
 
     if (loading || !userData) {
-        return <div className="loading">Chargement...</div>;
+        return <Loader text="Chargement de vos données..." />;
     }
 
     const { profile, statistics } = userData;

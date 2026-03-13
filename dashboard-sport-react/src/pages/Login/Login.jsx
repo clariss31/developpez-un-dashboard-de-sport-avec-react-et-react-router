@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import * as apiService from '../../services/apiService';
+import AnimatedBars from '../../components/AnimatedBars/AnimatedBars';
 
 /**
  * Page de connexion.
@@ -13,12 +14,14 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { login: setAuthToken } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setIsLoading(true);
 
         try {
             const data = await apiService.login(username, password);
@@ -26,6 +29,8 @@ const Login = () => {
             navigate('/');
         } catch (err) {
             setError(err.message || 'Erreur de connexion au serveur');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -33,9 +38,7 @@ const Login = () => {
         <div className="login-page">
             <div className="login-left">
                 <div className="login-logo">
-                    <div className="logo-icon">
-                        <span></span><span></span><span></span>
-                    </div>
+                    <AnimatedBars context="header" />
                     SPORTSEE
                 </div>
 
@@ -68,7 +71,9 @@ const Login = () => {
                             />
                         </div>
 
-                        <button type="submit" className="submit-btn">Se connecter</button>
+                        <button type="submit" className="submit-btn" disabled={isLoading}>
+                            {isLoading ? 'Connexion en cours...' : 'Se connecter'}
+                        </button>
                         <div className="forgot-password">Mot de passe oublié ?</div>
                     </form>
                 </div>

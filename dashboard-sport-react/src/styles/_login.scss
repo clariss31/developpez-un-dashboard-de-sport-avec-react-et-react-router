@@ -120,8 +120,13 @@
                     transition: opacity 0.2s;
                     width: 100%;
 
-                    &:hover {
+                    &:hover:not(:disabled) {
                         opacity: 0.9;
+                    }
+
+                    &:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
                     }
                 }
 

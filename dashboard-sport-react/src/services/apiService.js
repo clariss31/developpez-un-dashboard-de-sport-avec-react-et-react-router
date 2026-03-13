@@ -39,7 +39,9 @@ const apiFetch = async (url, options = {}) => {
     });
     if (!response.ok) {
         const text = await response.text().catch(() => '');
-        throw new Error(`HTTP ${response.status} – ${text || response.statusText}`);
+        const error = new Error(`HTTP ${response.status} – ${text || response.statusText}`);
+        error.status = response.status;
+        throw error;
     }
     return response.json();
 };
@@ -54,13 +56,24 @@ const apiFetch = async (url, options = {}) => {
  * @returns {Promise<{ token: string, userId: number }>}
  */
 export const login = async (username, password) => {
-    const response = await fetch(`${API_BASE_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-    });
+    let response;
+    try {
+        response = await fetch(`${API_BASE_URL}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        });
+    } catch (error) {
+        throw new Error('Erreur de connexion au serveur');
+    }
     if (!response.ok) {
-        throw new Error('Identifiants invalides');
+        if (response.status === 400 || response.status === 401) {
+            throw new Error('Identifiants invalides');
+        } else if (response.status >= 500) {
+            throw new Error('Erreur serveur. Veuillez réessayer plus tard.');
+        } else {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
     }
     return response.json();
 };

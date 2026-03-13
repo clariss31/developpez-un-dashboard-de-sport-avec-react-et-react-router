@@ -43,7 +43,7 @@ $bar-heights: 28px, 38px, 44px, 22px, 40px;
         @for $i from 1 through 5 {
             &--#{$i} {
                 height: nth($bar-heights, $i);
-                animation: bars $anim-dur ($anim-delay * $i) infinite ease-in-out alternate backwards;
+                animation: bars $anim-dur infinite ease-in-out alternate backwards;
             }
         }
     }
